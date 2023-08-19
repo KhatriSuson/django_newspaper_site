@@ -1,0 +1,63 @@
+{% extends "aznews/base.html" %}
+
+{% block content %}
+<!--================Blog Area =================-->
+<section class="blog_area single-post-area section-padding">
+   <div class="container">
+      <div class="row">
+         <div class="col-lg-8 posts-list">
+            {% include "aznews/detail/left/post_detail.html" %}
+            {% include "aznews/detail/left/post_nav.html" %}
+            {% include "aznews/detail/left/post_author.html" %}
+            {% include "aznews/detail/left/comment_list.html" %}
+            {% include "aznews/detail/left/comment_form.html" %}
+
+
+            <div class="comment-form">
+               <h4>Leave a Reply</h4>
+               <form class="form-contact comment_form" action="#" id="commentForm">
+                  <div class="row">
+                     <div class="col-12">
+                        <div class="form-group">
+                           <textarea class="form-control w-100" name="comment" id="comment" cols="30" rows="9"
+                              placeholder="Write Comment"></textarea>
+                        </div>
+                     </div>
+                     <div class="col-sm-6">
+                        <div class="form-group">
+                           <input class="form-control" name="name" id="name" type="text" placeholder="Name">
+                        </div>
+                     </div>
+                     <div class="col-sm-6">
+                        <div class="form-group">
+                           <input class="form-control" name="email" id="email" type="email" placeholder="Email">
+                        </div>
+                     </div>
+                     <div class="col-12">
+                        <div class="form-group">
+                           <input class="form-control" name="website" id="website" type="text" placeholder="Website">
+                        </div>
+                     </div>
+                  </div>
+                  <div class="form-group">
+                     <button type="submit" class="button button-contactForm btn_1 boxed-btn">Send Message</button>
+                  </div>
+               </form>
+            </div>
+         </div>
+         <div class="col-lg-4">
+            <div class="blog_right_slider">
+               {% include "aznews/list/right/search.html" %}
+               {% include "aznews/list/right/category.html" %}
+               {% include "aznews/list/right/popular_post.html" %}
+               {% include "aznews/list/right/tag.html" %}
+               {% include "aznews/list/right/newsletter.html" %}
+
+            </div>
+
+         </div>
+      </div>
+   </div>
+</section>
+<!--================ Blog Area end =================-->
+{% endblock content %}
