@@ -118,3 +118,29 @@ class CommentView(View):
 
             post = Post.objects.get(pk=post_id)
             return render(request, "aznews/detail/detail.html", {"post":post, "form":form},)
+
+from django.core.paginator import Paginator, PageNotAnInteger
+from django.db.models import Q
+
+class PostSearchView(View):
+    template_name = "aznews/list/list.html"
+
+    def get(self, request, *args, **kwargs):
+        query = request.GET["query"]
+        post_list = Post.objects.filter((Q(title__icontains=query) | Q(content__icontains=query)) & Q(status="active") & Q(published_at__isnull=False)).order_by("-published_at")
+
+
+        # pagination start
+
+        page = request.GET.get("page", 1)
+        paginate_by = 3
+        paginator = Paginator(post_list, paginate_by)
+
+        try:
+            posts = paginator.page(page)
+        except PageNotAnInteger:
+            posts = paginator.page(1)
+
+            # paginaton end 
+
+        return render(request, self.template_name, {"page_obj": posts, "query": query},)
