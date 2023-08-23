@@ -89,7 +89,43 @@
     <!-- Jquery Plugins, main Jquery -->
     <script src="{% static 'aznews./assets/js/plugins.js' %}"></script>
     <script src="{% static 'aznews./assets/js/main.js' %}"></script>
+    <script>
+        $(".pagination_number").click(function (e) {
+            // do not perform the default action
+            e.preventDefault();
+            // http://localhost:8000/post-search/
+            let current_url = window.location.href.split('?')[0];
+            let params = new URL(document.location).searchParams;
+            let query = params.get("query"); //a
+            let href = $(this).attr('href'); // ?page=2
+            //http://localhost:8000/pot-search/?page=2&query=a
+            let new_url = `${current_url}${href}&query=${query}`;
+            window.location.replace(new_url);
 
+        });
+    </script>
+
+    <script>
+        // form id
+        $("#newsletter_side_form").submit(function(e) {
+            e.preventDefault();
+            let serializeData = $(this).serialize()
+
+            $.ajax({
+                type: "POST",
+                url: "{% url 'newsletter' %}",
+                data: serializeData,
+                success: function(response) {
+                    console.log(response)
+
+                },
+
+                error: function(response) {
+                    console.log(response)
+                }
+            })
+        })
+    </script>
 </body>
 
 </html>

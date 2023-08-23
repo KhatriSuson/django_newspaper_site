@@ -102,6 +102,10 @@ class PostDetailView(DetailView):
 
         current_post = self.get_object()
 
+        # views count
+        current_post.views_count += 1
+        current_post.save()
+
         context["previous_post"] = (Post.objects.filter(published_at__isnull=False, status="active", id__lt=current_post.id).order_by("-id").first()) # "-id" = descendign order sorting
 
         context["next_post"] = (Post.objects.filter(published_at__isnull=False, status="active", id__gt=current_post.id).order_by("id").first())
@@ -144,3 +148,39 @@ class PostSearchView(View):
             # paginaton end 
 
         return render(request, self.template_name, {"page_obj": posts, "query": query},)
+    
+
+from django.http import JsonResponse
+from newspaper.forms import NewsletterForm
+
+class NewsLetterView(View):
+    def post(self, request):
+        is_ajax = request.headers.get("x-requested-with")
+        if is_ajax == 'XMLHttpRequest':
+            form = NewsletterForm(request.POST)
+            if form.is_valid():
+                form.save()
+                return JsonResponse(
+                    {
+                        "success":True,
+                        "message": "Successfully subscribed to the newsletter.",
+
+                    },
+                    status=201,
+                )
+            else:
+                return JsonResponse(
+                    {
+                        "success": False,
+                        "message": "Cannot subscribe to newsletter..",
+                    },
+                    status=400,
+                )
+        else:
+            return JsonResponse(
+                {
+                    "success": False,
+                    "message": "Cannot process. Must be an AJAX XMLHttpRequest",
+                },
+                status=400,
+            )

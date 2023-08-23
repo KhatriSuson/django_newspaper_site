@@ -52,9 +52,9 @@
                             <div class="main-menu d-none d-md-block">
                                 <nav>
                                     <ul id="navigation">
-                                        <li><a href="index.html">Home</a></li>
+                                        <li><a href="/">Home</a></li>
                                         {% for category in categories %}
-                                        <li><a href="#>{% url 'post-by-category' category.id %}"> {{ category.name}}</a>
+                                        <li><a href="{% url 'post-by-category' category.id %}"> {{ category.name}}</a>
                                         </li>
                                         {% endfor %}
                                         <li><a href=" {% url 'about' %}">About</a></li>
