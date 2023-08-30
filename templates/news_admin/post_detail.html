@@ -1,0 +1,22 @@
+{% extends 'news_admin/base.html' %}
+{% block content %}
+  <div class="post mt-4">
+    {% if post.published_at %}
+      <div class="date">{{ post.published_at }}</div>
+    {% else %}
+      <a href="{% url 'news_admin:post-publish' post.pk %}"
+        class="btn btn-primary">Publish</a>
+    {% endif %}
+    <h1>
+      <a href="#">{{ post.title }}</a>
+    </h1>
+    <div class="date author">@{{ post.author.username }}</div>
+    {% if user.is_authenticated %}
+      <div class="mt-3 mb-3">
+        <a href="{% url 'post-update' post.pk %}" class="btn btn-success">Update</a>
+        <a href="{% url 'post-delete' post.pk %}" class="btn btn-danger">Delete</a>
+      </div>
+    {% endif %}
+    <p align="justify">{{ post.content|linebreaksbr }}</p>
+  </div>
+{% endblock content %}

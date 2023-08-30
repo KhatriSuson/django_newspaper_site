@@ -1,0 +1,7 @@
+post_create.html {% extends "news_admin/base.html" %} {% block content %}
+<h1>Post</h1>
+<form action="" method="post" class="post-form" enctype="multipart/form-data">
+  {% csrf_token %} {{ form.as_div }}
+  <button type="submit" class="btn btn-success">Save</button>
+</form>
+{% endblock content %}
