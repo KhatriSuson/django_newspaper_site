@@ -27,6 +27,7 @@ from django.contrib.auth import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path("api/v1/", include("api.urls")),
     path('summernote/', include('django_summernote.urls')),
     path('', include("newspaper.urls")),
     path("news-admin/", include("blog_app.urls")),

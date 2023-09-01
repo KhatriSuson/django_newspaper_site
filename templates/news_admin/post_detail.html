@@ -5,7 +5,7 @@
       <div class="date">{{ post.published_at }}</div>
     {% else %}
       <a href="{% url 'news_admin:post-publish' post.pk %}"
-        class="btn btn-primary">Publish</a>
+         class="btn btn-primary">Publish</a>
     {% endif %}
     <h1>
       <a href="#">{{ post.title }}</a>

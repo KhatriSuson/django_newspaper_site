@@ -7,8 +7,8 @@ from blog_app.forms import PostForm
 from newspaper.models import Post
 
 from django.views.generic import ListView, DetailView, CreateView, UpdateView
-
-
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.generic import View
 from django.urls import reverse_lazy
 
 # from typing import Any
@@ -26,7 +26,7 @@ from django.urls import reverse_lazy
 # from django.views.generic import ListView, DetailView,CreateView,UpdateView
 
 
-class PostCreateView(CreateView):
+class PostCreateView(LoginRequiredMixin, CreateView):
     model = Post
     template_name = "news_admin/post_create.html"
     form_class = PostForm
@@ -62,7 +62,7 @@ class PostDetailView(DetailView):
         return queryset
 
 
-from django.contrib.auth.mixins import LoginRequiredMixin
+
 
 
 class DraftListView(LoginRequiredMixin, ListView):
@@ -112,7 +112,7 @@ class PostUpdateView(LoginRequiredMixin, UpdateView):
             return reverse_lazy("news_admin:draft-detail", kwargs={"pk": post.pk})
 
 
-from django.views.generic import View
+
 
 
 class PostDeleteView(LoginRequiredMixin, View):
@@ -136,7 +136,7 @@ class PostUpdateView(LoginRequiredMixin, View):
         form = PostForm(instance=post)
         return render(
             request,
-            "news_admin/post_create.html",
+            "news_admin:post_create.html",
             {"form": form},
         )
 
@@ -151,6 +151,6 @@ class PostUpdateView(LoginRequiredMixin, View):
                 return redirect("news_admin:draft-detail", pk=post.pk)
         return render(
             request,
-            "news_admin/post_create.html",
+            "news_admin:post_create.html",
             {"form": form},
         )

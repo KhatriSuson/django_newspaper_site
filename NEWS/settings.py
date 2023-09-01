@@ -41,7 +41,10 @@ INSTALLED_APPS = [
     "newspaper",
     "blog_app",
     # third party library
+    "rest_framework",
     "django_summernote",
+    "api",
+    
 ]
 
 MIDDLEWARE = [

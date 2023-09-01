@@ -11,7 +11,9 @@ urlpatterns = [
         name="post-detail",
     ),
     path("draft-list/", views.DraftListView.as_view(), name="draft-list"),
-    path("post-publish/<int:pk>/", views.PostPublishView.as_view, name="post-publish"),
+    path(
+        "post-publish/<int:pk>/", views.PostPublishView.as_view(), name="post-publish"
+    ),
     path(
         "draft-detail/<int:pk>/", views.DraftDetailView.as_view(), name="draft-detail"
     ),
